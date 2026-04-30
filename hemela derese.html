@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Hermela Derese | CS + AI Portfolio</title>
+  <!-- Google Fonts + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 10% 20%, #0a0f1e, #03050b);
+      color: #eef2ff;
+      scroll-behavior: smooth;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* animated gradient background cooler */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: linear-gradient(125deg, #070b17, #0b1120, #03060e);
+      background-size: 400% 400%;
+      animation: gradientShift 18s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* floating particles / dots animation */
+    .floating-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      background: rgba(79, 70, 229, 0.25);
+      border-radius: 50%;
+      filter: blur(2px);
+      animation: floatParticle 20s infinite linear;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(0vh) translateX(0) scale(1); opacity: 0.3; }
+      100% { transform: translateY(-100vh) translateX(40px) scale(1.5); opacity: 0; }
+    }
+
+    /* container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* glassmorphism nav */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      gap: 1rem;
+      backdrop-filter: blur(12px);
+      background: rgba(5, 10, 25, 0.65);
+      border-radius: 2rem;
+      margin-top: 1rem;
+      border: 1px solid rgba(79, 70, 229, 0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a5b4fc, #c084fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #cbd5e6;
+      transition: 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: #a78bfa;
+      text-shadow: 0 0 5px rgba(167,139,250,0.6);
+    }
+
+    /* buttons */
+    .btn-primary {
+      background: linear-gradient(95deg, #4f46e5, #7c3aed);
+      color: white;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px -5px #4f46e5;
+      background: linear-gradient(95deg, #6366f1, #8b5cf6);
+    }
+
+    /* hero section with type animation */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      background: rgba(79, 70, 229, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      width: fit-content;
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      font-size: 3.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(to right, #f0f9ff, #c4b5fd, #a78bfa);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.8rem;
+    }
+
+    .typewriter-container {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin: 0.7rem 0 1rem;
+      color: #cbd5e1;
+    }
+
+    .typed-text {
+      color: #a78bfa;
+      border-right: 2px solid #a78bfa;
+      padding-right: 5px;
+      animation: blinkCursor 0.8s step-end infinite;
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% { border-color: #a78bfa; }
+      50% { border-color: transparent; }
+    }
+
+    .hero-location {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: #cbd5f0;
+      max-width: 90%;
+      margin-bottom: 2rem;
+    }
+
+    .hero-avatar {
+      text-align: center;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 2rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      animation: levitate 4s infinite ease-in-out;
+    }
+
+    @keyframes levitate {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .avatar-icon {
+      font-size: 8rem;
+      color: #a78bfa;
+      filter: drop-shadow(0 0 12px #4f46e5);
+    }
+
+    /* sections */
+    section {
+      padding: 5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+      display: inline-block;
+      background: linear-gradient(120deg, #e0e7ff, #c084fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      border-left: 3px solid #a78bfa;
+      padding-left: 1rem;
+    }
+
+    /* glass cards */
+    .about-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background: rgba(15, 25, 45, 0.5);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      transition: all 0.3s;
+    }
+
+    .skill-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 1rem;
+    }
+    .skill-tag {
+      background: rgba(79, 70, 229, 0.2);
+      border-radius: 40px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      backdrop-filter: blur(3px);
+      border: 1px solid rgba(167, 139, 250, 0.5);
+      transition: 0.2s;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: rgba(10, 20, 35, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 1.8rem;
+      padding: 1.6rem;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      transition: all 0.25s;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: #a78bfa;
+      box-shadow: 0 20px 30px -12px rgba(79, 70, 229, 0.4);
+      background: rgba(15, 30, 55, 0.7);
+    }
+    .project-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      color: #c084fc;
+    }
+    .project-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .project-stack {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: #c084fc;
+      background: rgba(0,0,0,0.3);
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      margin-bottom: 0.8rem;
+    }
+
+    .design-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .design-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 1.2rem;
+      padding: 0.6rem 1.4rem;
+      border: 1px solid #4f46e5;
+      font-weight: 500;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      background: rgba(15, 25, 45, 0.55);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 2rem;
+      gap: 2rem;
+      border: 1px solid rgba(167, 139, 250, 0.4);
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+    }
+    .contact-item i {
+      width: 32px;
+      font-size: 1.2rem;
+      color: #a78bfa;
+    }
+    .contact-link {
+      text-decoration: none;
+      color: #e2e8f0;
+      border-bottom: 1px dotted #6b7280;
+      transition: color 0.2s;
+    }
+    .contact-link:hover {
+      color: #c084fc;
+      border-bottom-color: #c084fc;
+    }
+
+    /* SOCIAL TABS STYLES - like clickable tab buttons */
+    .social-tabs {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .social-tab {
+      background: rgba(79, 70, 229, 0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 50px;
+      padding: 0.7rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #e2e8f0;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      font-size: 0.9rem;
+    }
+    .social-tab i {
+      font-size: 1.2rem;
+      color: #a78bfa;
+    }
+    .social-tab:hover {
+      transform: translateY(-3px);
+      background: #4f46e5;
+      border-color: #c084fc;
+      color: white;
+    }
+    .social-tab:hover i {
+      color: white;
+    }
+
+    /* Icon-only social row (like app tabs) */
+    .icon-tabs {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .icon-tab {
+      background: rgba(79, 70, 229, 0.2);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #e2e8f0;
+      font-size: 1.4rem;
+      transition: all 0.25s ease;
+      border: 1px solid rgba(167, 139, 250, 0.4);
+    }
+    .icon-tab:hover {
+      transform: translateY(-5px);
+      background: #4f46e5;
+      color: white;
+      border-color: #c084fc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 780px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-name { font-size: 2.4rem; }
+      .about-wrapper { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="animated-bg"></div>
+<div class="floating-particles" id="particles"></div>
+
+<nav>
+  <div class="logo"><i class="fas fa-terminal"></i> Hermela.derese</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home" class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge"><i class="fas fa-code"></i> Welcome</div>
+      <h1 class="hero-name">Hermela Derese</h1>
+      <div class="typewriter-container">
+        <span class="typed-text" id="typed"></span>
+      </div>
+      <div class="hero-location"><i class="fas fa-map-marker-alt"></i> Live in Addis Ababa, Ethiopia</div>
+      <p class="hero-desc">Computer Science student passionate about building intelligent systems and beautiful web experiences.</p>
+      <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane"></i> Contact</a>
+    </div>
+    <div class="hero-avatar">
+      <i class="fas fa-microchip avatar-icon"></i>
+      <p style="margin-top: 1rem;">⚡ AI · Python · Design Fusion ⚡</p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">about me</h2>
+    <div class="about-wrapper">
+      <div>
+        <p style="margin-bottom: 1rem;">✨ I'm a Computer Science student based in Addis Ababa, passionate about turning ideas into real, working products with code.</p>
+        <p style="margin-bottom: 1rem;">My journey started with small experiments and curiosity-driven projects, and it's grown into a focus on full-stack development. I enjoy building clean, responsive, and meaningful web experiences.</p>
+        <p style="margin-bottom: 1rem;">So far, I've built an AI-powered job recommender and a personal portfolio site. Each project has pushed me to think deeper, code smarter, and improve my problem-solving skills.</p>
+        <p>Right now, I'm leveling up in JavaScript and React on the frontend, while preparing to dive into Node.js and backend development to complete my full-stack stack.</p>
+      </div>
+      <div>
+        <p><i class="fas fa-code"></i> <strong>Tech & design stack</strong></p>
+        <div class="skill-cloud">
+          <span class="skill-tag">🐍 Python</span>
+          <span class="skill-tag">🤖 Scikit-learn</span>
+          <span class="skill-tag">📊 Pandas/Seaborn</span>
+          <span class="skill-tag">🎨 Figma</span>
+          <span class="skill-tag">🖌️ Illustrator</span>
+          <span class="skill-tag">🧠 TensorFlow (basics)</span>
+          <span class="skill-tag">💻 Streamlit</span>
+          <span class="skill-tag">🌐 HTML/CSS/JS</span>
+          <span class="skill-tag">⚛️ React</span>
+        </div>
+        <p style="margin-top: 1rem;"><i class="fas fa-certificate"></i> <strong>Graphic Design Certificate</strong> – Visual communication & UI principles</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="container">
+    <h2 class="section-title">my projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="project-title">AI Job Recommendation System</div>
+        <div class="project-stack">Python · Scikit-learn · Figma</div>
+        <p>Skill-based job matching engine (TF-IDF + cosine similarity). Figma dashboard prototype + backend logic, precision 85%.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-globe"></i></div>
+        <div class="project-title">Personal Portfolio Website</div>
+        <div class="project-stack">HTML · CSS · JavaScript</div>
+        <p>Responsive portfolio with animated UI, glassmorphism effects, and interactive elements.</p>
+      </div>
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="project-title">Student Performance Predictor</div>
+        <div class="project-stack">Pandas · Scikit-learn · Seaborn</div>
+        <p>Predicts at-risk students using ML models and provides visual reports for educators.</p>
+      </div>
+    </div>
+    <div style="margin-top: 2.5rem; background: rgba(79,70,229,0.15); border-radius: 1.5rem; padding: 1.5rem; backdrop-filter: blur(4px);">
+      <h3 style="display: flex; gap: 0.5rem;"><i class="fas fa-pen-fancy"></i> Design Work</h3>
+      <div class="design-showcase">
+        <div class="design-card">🎨 UI/UX Mockups</div>
+        <div class="design-card">📊 Infographics</div>
+        <div class="design-card">🖼️ Brand Identity</div>
+        <div class="design-card">🧩 Poster Design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Get in touch</h2>
+    <div class="contact-row">
+      <div style="flex: 1;">
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i> 
+          <a href="mailto:hermeladerese624@gmail.com" class="contact-link">hermeladerese624@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-github"></i> 
+          <a href="https://github.com/hermela24" target="_blank" class="contact-link">github.com/hermela24</a>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-linkedin"></i> 
+          <a href="https://linkedin.com/in/hermela-derese" target="_blank" class="contact-link">linkedin.com/in/hermela-derese</a>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-instagram"></i> 
+          <a href="https://instagram.com/its_hermiii" target="_blank" class="contact-link">instagram.com/its_hermiii</a>
+        </div>
+        <div class="contact-item">
+          <i class="fab fa-telegram"></i> 
+          <a href="https://t.me/Hermi_24" target="_blank" class="contact-link">t.me/Hermi_24</a>
+        </div>
+      </div>
+      <div style="flex: 1;">
+        <div><i class="fas fa-heart" style="color:#f472b6"></i> <strong>Open for:</strong> AI internships · ML trainee · AI product design roles</div>
+        <br>
+        <div><i class="fas fa-map-pin"></i> Based in Addis Ababa, remote worldwide.</div>
+        
+        <!-- SOCIAL TABS - Like clickable buttons/tabs! -->
+        <div style="margin-top: 2rem;">
+          <p style="margin-bottom: 1rem;"><i class="fas fa-share-alt"></i> Connect with me:</p>
+          
+          <!-- Tab-style buttons (with text + icon) -->
+          <div class="social-tabs">
+            <a href="https://github.com/hermela24" target="_blank" class="social-tab">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://linkedin.com/in/hermela-derese" target="_blank" class="social-tab">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://instagram.com/its_hermiii" target="_blank" class="social-tab">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://t.me/Hermi_24" target="_blank" class="social-tab">
+              <i class="fab fa-telegram"></i> Telegram
+            </a>
+          </div>
+          
+          <!-- Icon-only tabs (like app icons) -->
+          <div class="icon-tabs">
+            <a href="https://github.com/hermela24" target="_blank" class="icon-tab">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/hermela-derese" target="_blank" class="icon-tab">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://instagram.com/its_hermiii" target="_blank" class="icon-tab">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://t.me/Hermi_24" target="_blank" class="icon-tab">
+              <i class="fab fa-telegram-plane"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Hermela Derese — Computer Science student + Graphic Design | ✨ Always learning, always building ✨</p>
+  <p style="margin-top: 6px;">#AI #CSstudent #Ethiopia #DesignInTech</p>
+</footer>
+
+<script>
+  // typewriter animation
+  const roles = ["I'm Hermela Derese", "4th-year Computer Science student", "Graphic designer", "AI & ML enthusiast"];
+  let index = 0;
+  let charIndex = 0;
+  let currentText = "";
+  let isDeleting = false;
+  const typedSpan = document.getElementById("typed");
+
+  function typeEffect() {
+    const fullText = roles[index];
+    if (isDeleting) {
+      currentText = fullText.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      currentText = fullText.substring(0, charIndex + 1);
+      charIndex++;
+    }
+    typedSpan.innerText = currentText;
+    if (!isDeleting && charIndex === fullText.length) {
+      isDeleting = true;
+      setTimeout(typeEffect, 1800);
+      return;
+    }
+    if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      index = (index + 1) % roles.length;
+      setTimeout(typeEffect, 300);
+      return;
+    }
+    const speed = isDeleting ? 50 : 100;
+    setTimeout(typeEffect, speed);
+  }
+  typeEffect();
+
+  // floating particles animation
+  function createParticles() {
+    const particlesDiv = document.getElementById('particles');
+    for (let i = 0; i < 70; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      const size = Math.random() * 8 + 2;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.bottom = `-10px`;
+      particle.style.animationDuration = `${Math.random() * 12 + 8}s`;
+      particle.style.animationDelay = `${Math.random() * 10}s`;
+      particle.style.opacity = Math.random() * 0.4;
+      particlesDiv.appendChild(particle);
+    }
+  }
+  createParticles();
+</script>
+</body>
+</html>
